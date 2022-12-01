@@ -18,13 +18,13 @@ removeFromList elem (l:ls)
     | otherwise = [l] ++ (removeFromList elem ls)
 
 topthree :: [Int] -> [Int]
-topthree ls = take 3 $ [m] ++ (topthree $ removeFromList m ls)
+topthree ls = [m] ++ (topthree $ removeFromList m ls)
     where
         m = maximum ls
 
 main = do
     contents <- readFile "calories.txt"
     let result = process (lines contents) 0 []
-        output = foldl (+) 0 (topthree result)
+        output = foldl (+) 0 (take 3 $ topthree result)
     print output
 
